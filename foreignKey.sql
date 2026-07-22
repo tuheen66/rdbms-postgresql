@@ -1,60 +1,68 @@
-CREATE table "user"(
-    id SERIAL PRIMARY KEY,
-    username VARCHAR(25) NOT NULL
-)
-
-CREATE TABLE post(
-    id SERIAL PRIMARY KEY,
-    title TEXT NOT NULL,
-    --user_id INTEGER REFERENCES "user"(id) on delete CASCADE --? CASCADE deletes post as well
-    -- user_id INTEGER REFERENCES "user"(id) on delete set NULL --? sets NULL at user_id
-    user_id INTEGER REFERENCES "user"(id) on delete set DEFAULT DEFAULT 2 --? sets default value
-)
-
-
-INSERT INTO "user" (username) VALUES
-('akash'),
-('batash'),
-('sagor'),
-('nodi'); 
-
-
-
-INSERT INTO post(title, user_id) VALUES
-('Enjoying a sunny day with Akash! ☀️', 2),
-('Batash just shared an amazing recipe! 🍲', 1),
-('Exploring adventures with Sagor.🌟', 4),
-('Nodi''s wisdom always leaves me inspired. 📚', 4);
-
 
 drop table "user";
-drop table post
 
-alter table post
-alter COLUMN user_id SET NOT NULL
+drop table post;
+
+CREATE Table "user" (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(25)
+)
+
+CREATE Table post(
+    id SERIAL PRIMARY KEY,
+    title text NOT NULL,
+    user_id INTEGER REFERENCES "user"(id) on delete set DEFAULT DEFAULT 2 --! deletes all posts of a user when the user is deleted and sets the user_id to default value (2 in this case)
+)
+
+-- user_id INTEGER REFERENCES "user"(id) on delete cascade --! deletes all posts of a user when the user is deleted
+-- user_id INTEGER REFERENCES "user"(id) on delete set null --! deletes all posts of a user when the user is deleted and sets the user_id to null
 
 
-INSERT INTO post(title, user_id) VALUES('test', 4)
+ALTER Table post alter COLUMN user_id set NOT null;
 
-select * from "user";
-select * from post
+INSERT INTO
+    "user" (username)
+VALUES ('akash'),
+    ('batash'),
+    ('sagor'),
+    ('nodi');
 
 
--- Insertion constraint on INSERT post
+
+INSERT INTO
+    post (title, user_id)
+VALUES (
+        'Enjoying a sunny day with Akash! ☀️',
+        2
+    ),
+    (
+        'Batash just shared an amazing recipe! 🍲',
+        1
+    ),
+    (
+        'Exploring adventures with Sagor.🌟',
+        4
+    ),
+    (
+        'Nodi''s wisdom always leaves me inspired. 📚',
+        4
+    );
+
+select * FROM "user";
+
+select * FROM post;
+
+insert into post (title, user_id) values ('test', 4)
+
+--! Insertion constraint on INSERT post
 -- Attempting to insert a post with a user ID that does not exist
 -- Inserting a post with a valid user ID
 -- Attempting to insert a post without specifying a user ID
 
+delete from "user" where id = 4;
 
-
--- Deletion constraint on DELETE user
---! Restrict Deletion -> ON DELETE RESTRICT / ON DELETE NO ACTION (default) - cannot delete user until deleting post
-delete from "user"
-where id=4
-
---* Cascading Deletion -> ON DELETE CASCADE - delete user and delete corresponding post
-
-
---? Setting NULL -> ON DELETE SET NULL 
---? Set Default value -> ON DELETE SET DEFAULT
-
+--! Deletion constraint on DELETE user
+-- Restrict Deletion -> ON DELETE RESTRICT / ON DELETE NO ACTION (default)
+-- Cascading Deletion -> ON DELETE CASCADE
+-- Setting NULL -> ON DELETE SET NULL
+-- Set Default value -> ON DELETE SET DEFAULT

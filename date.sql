@@ -1,45 +1,57 @@
-SHOW timezone;
+show timezone;
+--? Show the current timezone
 
---?  date time - timestamp
-SELECT now();
+-- timestamp
 
--- ? with time zone and without time sone
-CREATE table timeZ (ts TIMESTAMP without time zone, tsz TIMESTAMP with time zone);
+select now();
 
-INSERT into timeZ VALUES ('2024-01-12 10:45:00','2024-01-12 10:45:00')
+create table timeZ (
+    ts Timestamp without time zone,
+    tsz timestamp with time zone
+)
 
-SELECT * from timeZ;
+insert into
+    timeZ
+values (
+        '2024-01-12 10:45:00',
+        '2024-01-12 10:45:00'
+    )
 
---?  gives only date
-SELECT CURRENT_DATE;
+select * from timeZ;
 
--- ? casting
-SELECT now():: date;
-SELECT now():: time;
+select current_date;
 
--- ?Converts time stamp to string according to the given format.
-SELECT to_char(now(), 'dd-mm-yyyy');
+SELECT now()::date;
+--? current date
 
--- ? shows current month
-SELECT to_char(now(), 'Month');
+SELECT now()::time;
+--? current time
 
+SELECT to_char(now(), 'DD-MM-YYYY');
+--? current date in DD-MM-YYYY format
+--! search in Postgres documentation for more date formatting options
 
--- ? shows date 1 year before current date ( can be with month)
+SELECT to_char(now(), 'DDD');
+--? day of the year
+
+--! INTERVAL
+
 SELECT CURRENT_DATE - INTERVAL '1 year';
+--? current date minus 1 year
 
--- ? to calculate age from current date
-SELECT age(CURRENT_DATE, '1965-08-14');
+SELECT CURRENT_DATE - INTERVAL '1 year 2 months';
+--? current date minus 1 year and 2 months
 
+SELECT age (CURRENT_DATE, '1965-08-14');
+--? age between current date and 1965-08-14
 
-SELECT *, age(CURRENT_DATE, dob) from students; 
+SELECT *, age (CURRENT_DATE, DOB) FROM students;
+--? age between current date and DOB for each student
 
+SELECT extract( year from '2026-07-21'::date );
+--? extract year from a date
 
--- ? extract day, month or year from date
-select extract(month from '2025-06-02':: date);
-
-SELECT 'n':: BOOLEAN;
-
-
-
+SELECT extract( day from '2026-07-21'::date );
+--? extract day from a date
 
 

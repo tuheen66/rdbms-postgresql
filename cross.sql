@@ -16,18 +16,14 @@ INSERT INTO employees VALUES (2, 'Jane Smith', 102);
 INSERT INTO departments VALUES (101, 'Human Resources');
 INSERT INTO departments VALUES (102, 'Marketing');
 
-
-SELECT * FROM departments;
-
-SELECT * FROM employees;
-
---? CROSS JOIN
-SELECT * FROM employees
-CROSS JOIN departments;
+SELECT * from employees;
+SELECT * from departments;
 
 
---? Natural Join => keeps one of the common columns and keeps common rows of the common columns
-SELECT * FROM employees
-NATURAL JOIN departments;
+--* CROSS JOIN
 
+SELECT * FROM employees CROSS JOIN departments
 
+--* NATURAL JOIN
+
+SELECT * FROM employees NATURAL JOIN departments

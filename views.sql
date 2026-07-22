@@ -1,24 +1,23 @@
-SELECT * from employees
+SELECT * from employees;
 
-CREATE VIEW  dept_avg_salary
+CREATE View dept_avg_salary
 AS
-SELECT department_name, avg(salary) FROM employees 
-GROUP BY department_name
+SELECT department_name, avg(salary) FROM employees GROUP BY department_name;
 
+SELECT * from dept_avg_salary;
 
-SELECT * FROM dept_avg_salary
-
-
-CREATE view test_view
+CREATE View test_view
 AS
 SELECT employee_name, salary, department_name 
 FROM employees 
 WHERE department_name in 
 (SELECT department_name FROM employees WHERE department_name LIKE '%R%');
 
-SELECT * from test_view
 
 
---? Simplifying complex queries
---? Improved security
---? Enhanced data abstraction
+SELECT * from test_view;
+
+
+-- Simplifying complex queries
+-- Improved security
+-- Enhanced data abstraction
