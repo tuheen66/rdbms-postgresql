@@ -1,3 +1,4 @@
+--! #01
 
 DROP table students
 
@@ -66,6 +67,8 @@ DELETE FROM students WHERE age < 19
 
 
 -- ! ========================================================================
+
+--! #02
 drop table employees
 
 
@@ -132,7 +135,7 @@ UPDATE employees SET department = 'Human Resources' WHERE department = 'HR'
 
 --! ===========================================================================
 
-
+--! #03
 
 CREATE TABLE products (
     product_id SERIAL PRIMARY KEY,
@@ -200,6 +203,8 @@ SELECT category, count(*) from products GROUP BY category
 -- Count products in each category.
 
 --!=======================================================================
+
+--! #04
 
 CREATE TABLE customers (
     customer_id SERIAL PRIMARY KEY,

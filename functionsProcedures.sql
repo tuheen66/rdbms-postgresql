@@ -1,3 +1,4 @@
+-- Active: 1784407434089@@127.0.0.1@5432@ph
 /*
                     @Procedural Approach:
     1. Language Support: Supports procedural languages like PL/pgSQL, PL/Perl, PL/Python, etc.
@@ -48,5 +49,57 @@ $$
 $$
 
 SELECT delete_emp_by_id(29)
+
+
+--! PROCEDURE
+
+CREATE Procedure remove_emp()
+LANGUAGE plpgsql
+AS
+$$  
+      BEGIN
+        DELETE FROM employees WHERE employee_id = 28;
+    END
+$$;
+
+
+CALL remove_emp()
+
+
+--? using variable
+
+CREATE Procedure remove_emp_var()
+LANGUAGE plpgsql
+AS
+$$  
+    DECLARE
+    test_var INT;
+    BEGIN
+        SELECT employee_id INTO test_var FROM employees WHERE employee_id = 27;
+        DELETE FROM employees WHERE employee_id = test_var;
+    END
+$$;
+
+CALL remove_emp_var()
+
+--? with parameter
+
+CREATE Procedure remove_emp_by_id(p_emp_id INT)
+LANGUAGE plpgsql
+AS
+$$  
+    DECLARE
+    test_var INT;
+    BEGIN
+        SELECT employee_id INTO test_var FROM employees WHERE employee_id = p_emp_id;
+        DELETE FROM employees WHERE employee_id = test_var;
+
+        RAISE NOTICE 'Employee removed successfully';
+    END
+$$;
+
+CALL remove_emp_by_id(24)
+
+
 
 
