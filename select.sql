@@ -256,7 +256,7 @@ SELECT email as "Student Email" from students;
 SELECT * FROM students ORDER BY dob ASC;
 
 SELECT DISTINCT blood_group FROM students;
---? Select distinct blood groups from students table
+--? Select distinct (removes duplicate) blood groups from students table
 
 SELECT * FROM students WHERE grade = 'A' AND course = 'Physics';
 --? Select students with grade A and enrolled in Physics course
