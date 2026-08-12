@@ -1,3 +1,4 @@
+-- Active: 1786345408006@@127.0.0.1@5432@postgres
 CREATE TABLE students (
     student_id SERIAL PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
@@ -264,8 +265,25 @@ SELECT * FROM students WHERE grade = 'A' AND course = 'Physics';
 SELECT * FROM students WHERE blood_group = 'A+';
 --? Select students with blood group A+
 
+SELECT
+    first_name,
+    course,
+    grade,
+    country
+FROM students
+WHERE (
+        grade = 'A'
+        OR grade = 'B'
+    )
+    and (
+        course = 'Math'
+        OR course = 'Physics'
+    )
+
 SELECT * FROM students WHERE age > 18 and course = 'Physics';
 --? Select students older than 18 and enrolled in Physics course
+
+SELECT * FROM students WHERE grade = 'A' and course = 'Physics';
 
 SELECT *
 FROM students
@@ -394,12 +412,8 @@ where
 
 update students
 set
-    email = 'default@example.com', age=25
+    email = 'default@example.com',
+    age = 25
 where
     student_id = 13;
 --? update email and age for student with student_id 13
-
-
-
-
-
